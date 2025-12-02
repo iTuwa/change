@@ -17,6 +17,11 @@
           var links = document.querySelectorAll('body a');
           for (var i = 0; i < links.length; i++) {
             var link = links[i];
+            var href = link.getAttribute('href');
+            // Keep external links (socials, Etherscan, Telegram, etc.) working normally
+            if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+              continue;
+            }
             link.removeAttribute('href');
             link.classList.add('interact-button');
           }
