@@ -52,24 +52,25 @@
             var container = document.querySelector('.row_links .links');
             if (!container) return;
 
-            var seen = {};
-            var icons = container.querySelectorAll('.icon a[href]');
-            for (var i = 0; i < icons.length; i++) {
-              var a = icons[i];
-              var href = a.getAttribute('href');
-              if (href === 'https://x.com/opensea_support' || href === 'https://www.instagram.com/opensea/') {
-                if (seen[href]) {
-                  var iconDiv = a.closest('.icon');
-                  if (iconDiv && iconDiv.parentNode) {
-                    iconDiv.parentNode.removeChild(iconDiv);
-                  }
-                } else {
-                  seen[href] = true;
-                }
-              }
+            // Replace any existing icons with a clean, minimal set
+            container.innerHTML = '';
+
+            function addIcon(href, label) {
+              var div = document.createElement('div');
+              div.className = 'icon';
+              var a = document.createElement('a');
+              a.href = href;
+              a.textContent = label;
+              div.appendChild(a);
+              container.appendChild(div);
             }
+
+            addIcon('https://discord.com/invite/opensea', 'D');
+            addIcon('https://x.com/opensea_support', 'X');
+            addIcon('https://www.reddit.com/r/opensea/', 'R');
+            addIcon('https://www.instagram.com/opensea/', 'I');
           } catch (e) {
-            console.error('Error normalizing social icons', e);
+            console.error('Error initializing social icons', e);
           }
         });
       </script>
