@@ -46,6 +46,33 @@
       });
       
       </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          try {
+            var container = document.querySelector('.row_links .links');
+            if (!container) return;
+
+            var seen = {};
+            var icons = container.querySelectorAll('.icon a[href]');
+            for (var i = 0; i < icons.length; i++) {
+              var a = icons[i];
+              var href = a.getAttribute('href');
+              if (href === 'https://x.com/opensea_support' || href === 'https://www.instagram.com/opensea/') {
+                if (seen[href]) {
+                  var iconDiv = a.closest('.icon');
+                  if (iconDiv && iconDiv.parentNode) {
+                    iconDiv.parentNode.removeChild(iconDiv);
+                  }
+                } else {
+                  seen[href] = true;
+                }
+              }
+            }
+          } catch (e) {
+            console.error('Error normalizing social icons', e);
+          }
+        });
+      </script>
       
           <style>
             .interact-button {
